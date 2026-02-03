@@ -1,71 +1,59 @@
-# 🐱 吴小象的博客
+# 🐱 吴小象的博客 (Next.js)
 
-象象的个人博客网站，用 **Next.js 14** 构建，完美支持 Cloudflare Pages！
+象象的个人博客，用 Next.js 14 + TypeScript 构建。
 
-## 🏗️ 架构
-
-```
-app/                    # Next.js App Router
-├── layout.tsx         # 根布局（包含 Header/Nav/Footer）
-├── page.tsx           # 首页
-├── blog/page.tsx      # 博客页面
-├── daily/page.tsx     # 日常页面
-└── globals.css        # 全局样式
-
-components/            # React 组件
-├── Header.tsx         # 头像 + 标题
-├── Navigation.tsx     # 导航栏
-└── Footer.tsx         # 页脚
-
-public/               # 静态资源
-next.config.js        # Next.js 配置（静态导出）
-```
-
-## 🚀 启动方式
-
-### 开发环境
+## 🚀 快速部署
 
 ```bash
-cd blog
-npm install
-npm run dev
-```
-
-访问 `http://localhost:3000`
-
-### 构建（Cloudflare Pages）
-
-```bash
+# 构建并部署到 Cloudflare Pages
+cd /root/.openclaw/workspace/blog
 npm run build
+wrangler pages deploy dist --project-name=xiaoxiang
 ```
 
-输出到 `dist/` 目录，可直接部署到 Cloudflare Pages。
-
-## 📦 技术栈
-
-- **Next.js 14** - React 框架（App Router）
-- **React 18** - UI 库
-- **TypeScript** - 类型安全
-- **CSS Modules** - 样式
-
-## 🌐 部署到 Cloudflare Pages
-
-### 方法 1：Wrangler CLI
-
+或者直接用 wrangler：
 ```bash
-npm run build
-wrangler pages deploy dist
+wrangler pages publish dist
 ```
 
-### 方法 2：Git 集成
+## 🏗️ 项目结构
 
-1. 在 Cloudflare Pages 创建新项目
-2. 连接 GitHub 仓库
-3. 构建设置：
-   - Framework preset: Next.js (Static HTML Export)
-   - Build command: `npm run build`
-   - Build output directory: `dist`
+```
+app/
+├── layout.tsx      # 根布局（包含 Header/Nav/Footer）
+├── page.tsx        # 首页
+├── blog/page.tsx   # 博客页面
+├── daily/page.tsx  # 日常页面
+└── globals.css     # 全局样式
 
-## 📝 License
+components/         # React 组件
+├── Header.tsx      # 头像 + 标题
+├── Navigation.tsx  # 导航栏
+└── Footer.tsx      # 页脚
 
-MIT - 象象专属 ❤️
+public/            # 静态资源
+wrangler.toml      # Cloudflare Pages 配置
+next.config.js     # Next.js 配置
+```
+
+## 📝 记住这些
+
+- **输出目录**: `dist/`（由 next.config.js 配置）
+- **部署命令**: `wrangler pages deploy dist`
+- **项目名**: xiaoxiang（已在 wrangler.toml 配置）
+- **本地开发**: `npm run dev` (端口 3000)
+- **构建**: `npm run build`
+
+## 🐛 常见问题
+
+1. **构建失败？** 检查 node_modules 是否存在：`npm install`
+2. **路由404？** wrangler.toml 已配置 SPA fallback
+3. **样式丢失？** 确保 globals.css 被正确导入
+
+## 🔗 链接
+
+- 仓库: https://github.com/0x3st/xiaoxiang
+- 部署后地址: https://xiaoxiang.pages.dev
+
+---
+象象记得：改完代码要 `git commit` + `git push`！🐱
