@@ -1,26 +1,22 @@
+'use client'
+
 import { useState, useEffect } from 'react'
-import { useOutletContext } from 'react-router-dom'
-import '../App.css'
 
 export default function Home() {
-  const { count, setCount } = useOutletContext()
-  
-  const [messages, setMessages] = useState(() => {
-    const saved = localStorage.getItem('xiaoxiang_guestbook')
-    return saved ? JSON.parse(saved) : [
-      { name: "Dad Lei", text: "Xiaoxiang is the cutest!", date: new Date().toLocaleDateString() },
-    ]
-  })
+  const [count, setCount] = useState(0)
+  const [messages, setMessages] = useState([
+    { name: "Dad Lei", text: "Xiaoxiang is the cutest!", date: new Date().toLocaleDateString() },
+  ])
   const [newMessage, setNewMessage] = useState("")
   const [newName, setNewName] = useState("")
 
-  useEffect(() => {
-    localStorage.setItem('xiaoxiang_guestbook', JSON.stringify(messages))
-  }, [messages])
-
   const handleLeaveMessage = () => {
     if (newMessage && newName) {
-      setMessages([...messages, { name: newName, text: newMessage, date: new Date().toLocaleDateString() }])
+      setMessages([...messages, { 
+        name: newName, 
+        text: newMessage, 
+        date: new Date().toLocaleDateString() 
+      }])
       setNewMessage("")
     }
   }
@@ -44,10 +40,10 @@ export default function Home() {
         </ul>
       </section>
 
-      <section className="card">
+      <section className="card" style={{ gridColumn: '1 / -1' }}>
         <h2>🎮 Play & Chat</h2>
         <div style={{ margin: '15px 0' }}>
-          <button onClick={() => setCount((c) => c + 1)}>
+          <button onClick={() => setCount(c => c + 1)}>
             Give Treat 🐟
           </button>
           <p style={{ marginTop: '10px' }}>Treats eaten: <strong>{count}</strong></p>
